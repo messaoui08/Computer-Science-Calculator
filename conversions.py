@@ -1,17 +1,20 @@
-def decimal_to_binary(n):
-    return bin(n).replace("0b", "")
-
-def binary_to_decimal(b):
-    return int(b, 2)
-
-def decimal_to_octal(n):
-    return oct(n).replace("0o", "")
-
-def octal_to_decimal(o):
-    return int(o, 8)
-
-def decimal_to_hexadecimal(n):
-    return hex(n).replace("0x", "").upper()
-
-def hexadecimal_to_decimal(h):
-    return int(h, 16)
+def transform_number():
+    print("1. Binary to Decimal")
+    print("2. Decimal to Binary")
+    print("3. Octal to Decimal")
+    print("4. Hexadecimal to Decimal")
+    choice = input("Choose an option: ")
+    number = input("Enter the number: ")
+    try:
+        if choice == "1":
+            print(f"Decimal: {int(number, 2)}")
+        elif choice == "2":
+            print(f"Binary: {bin(int(number))[2:]}")
+        elif choice == "3":
+            print(f"Decimal: {int(number, 8)}")
+        elif choice == "4":
+            print(f"Decimal: {int(number, 16)}")
+        else:
+            print("Invalid choice!")
+    except ValueError:
+        print("Invalid number format!")
