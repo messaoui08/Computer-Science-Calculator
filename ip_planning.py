@@ -1,16 +1,12 @@
-def calculate_ip_details(ip, subnet_mask):
-    ip_parts = list(map(int, ip.split('.')))
-    mask_parts = list(map(int, subnet_mask.split('.')))
-    
-    network_address = [ip_parts[i] & mask_parts[i] for i in range(4)]
-    broadcast_address = [network_address[i] | (~mask_parts[i] & 255) for i in range(4)]
-    
-    total_hosts = (2 ** (32 - sum(bin(x).count('1') for x in mask_parts))) - 2
-    available_hosts = total_hosts
+import ipaddress
 
-    return {
-        'Network Address': '.'.join(map(str, network_address)),
-        'Broadcast Address': '.'.join(map(str, broadcast_address)),
-        'Total Hosts': total_hosts,
-        'Available Hosts': available_hosts
-    }
+def compute_ip_planning():
+    ip = input("Enter the IP address with CIDR (e.g., 192.168.1.0/24): ")
+    try:
+        network = ipaddress.IPv4Network(ip, strict=False)
+        print(f"Network Address: {network.network_address}")
+        print(f"Broadcast Address: {network.broadcast_address}")
+        print(f"Netmask: {network.netmask}")
+        print(f"Available Hosts: {list(network.hosts())}")
+    except ValueError:
+        print("Invalid IP address!")
